@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Playlist Detail{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-3 col-lg-1">
+           {% include 'playlists/sidebar.html' %}
+        </div>
+
+        <div class="col-sm-9 col-lg-11">
+            <h1>Playlist Detail</h1>
+
+            {% if playlist %}
+                <p>{{ playlist['id'] }}</p>
+                <p>{{ playlist['title'] }}</p>
+            {% endif %}
+
+            <div id="video-container">
+                <ul class="list-group mb-3">
+                    {% for video in playlist['videos'] %}
+                        {% with path = '/videos/' + video['id'], title = video['title'] %}
+                            <li class="list-group-item" id="video-item-{{ loop.index }}">
+                                {% include 'playlists/htmx/link.html' %}
+                                {% if request.user.is_authenticated %}
+                                    <button
+                                            class="btn btn-sm btn-outline-secondary mx-2"
+                                            hx-post="/playlists/{{ playlist['id'] }}/delete"
+                                            hx-target="#video-item-{{ loop.index }}"
+                                            hx-vals='{"index": "{{ loop.index - 1 }}"}'
+                                    >
+                                        Remove
+                                    </button>
+                            {% endif %}
+                            </li>
+                        {% endwith %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% if request.user.is_authenticated %}
+                <button
+                        class="btn btn-outline-secondary"
+                        hx-get="/playlists/{{ playlist['id'] }}/add-to-playlist"
+                        hx-trigger="click"
+                        hx-target="#video-container"
+                        hx-swap="beforeend"
+                >
+                    Add Video Form
+                </button>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

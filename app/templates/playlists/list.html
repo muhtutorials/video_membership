@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Video List{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-3 col-lg-1">
+           {% include 'playlists/sidebar.html' %}
+        </div>
+
+        <div class="col-sm-9 col-lg-11">
+            <h1>Playlists</h1>
+            {% if playlists %}
+                <div class="list-group">
+                    {% for playlist in playlists %}
+                        <a href="/playlists/{{ playlist._id }}" class="list-group-item list-group-item-action">{{ playlist.title }}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

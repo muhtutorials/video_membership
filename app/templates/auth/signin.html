@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Signin{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1>Signin</h1>
+
+            {% include 'snippets/form_errors.html' %}
+
+            {% if request.user.is_authenticated %}
+                <p>You are already signed in. Would you like to <a href="/auth/signout">sign out</a>?</p>
+            {% else %}
+                <form method="post">
+                    <div>
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" value="{% if data %}{{ data['username'] }}{% endif %}">
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" />
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Signin</button>
+                </form>
+                <p class="mt-2"><a href="/auth/signup">Do you need an account?</a></p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

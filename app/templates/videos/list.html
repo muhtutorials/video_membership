@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Video List{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-3 col-lg-1">
+           {% include 'videos/sidebar.html' %}
+        </div>
+
+        <div class="col-sm-9 col-lg-11">
+            <h1>Video List</h1>
+
+            {% if videos %}
+                {% for video in videos %}
+                    {% include 'videos/htmx/link.html' %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1>Signup</h1>
+
+            {% include 'snippets/form_errors.html' %}
+
+            <form method="post">
+                <div>
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" value="{% if data %}{{ data['username'] }}{% endif %}">
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{% if data %}{{ data['email'] }}{% endif %}">
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <div>
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Signup</button>
+            </form>
+            <p class="mt-2"><a href="/auth/signin">Do you have to sign in?</a></p>
+        </div>
+    </div>
+{% endblock %}

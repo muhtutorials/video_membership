@@ -1,0 +1,12 @@
+<div class="mb-2 p-2 border rounded" id="video-{{ video['id'] }}">
+    <a href="/videos/{{ video['id'] }}">{{ video['title'] }}</a>
+    {% if request.user.is_authenticated %}
+        <button
+                class="btn btn-sm btn-outline-secondary mx-2"
+                hx-get="/videos/{{ video['id'] }}/hx-edit"
+                hx-target="#video-{{ video['id'] }}"
+        >
+            Edit
+        </button>
+    {% endif %}
+</div>

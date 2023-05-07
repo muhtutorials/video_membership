@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Video Membership{% endblock %}
+
+{% block content %}
+    <div class="text-center col-md-4 col-sm-6 col-12 mx-auto">
+        <h3>Found {{ num_hits }} results for "{{ query }}" query</h3>
+
+        {% if request.user.is_authenticated %}
+            <button class='btn btn-sm btn-outline-secondary my-3' hx-post='/search/update-index'>
+                Refresh Search Index
+            </button>
+        {% endif %}
+
+        {% include 'search/search_form.html' %}
+        <ul class="list-group mt-3">
+            {% for hit in hits %}
+                <a href="/{{ hit['type'] }}s/{{ hit['objectID'] }}" class="list-group-item">{{ hit['title'] }} - <span class="fs-6">[{{ hit['type'] }}]</span></a>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

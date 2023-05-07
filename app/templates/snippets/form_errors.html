@@ -1,0 +1,5 @@
+{% if errors %}
+    {% for error in errors %}
+        <b>{{ error.loc[0] }}</b>: {{ error.msg }}
+    {% endfor %}
+{% endif %}
